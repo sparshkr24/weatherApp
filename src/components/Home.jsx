@@ -84,7 +84,7 @@ function Home() {
       {!isSubmitted && (
         <div className="px-5 py-5">
           <div className="bg-white p-10 mt-5 bg-opacity-70 rounded-3xl flex flex-col justify-evenly items-center shadow-md w-fit mx-auto">
-            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-[#100450] hover:text-blue-600">
+            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-[#100450] hover:text-blue-600 hover:cursor-pointer hover:scale-110 duration-200 ease-in-out">
               Enter City Name to check weather forecast for next five days
             </div>
             <img src={weathersvg} alt="Enter The City Name" />
