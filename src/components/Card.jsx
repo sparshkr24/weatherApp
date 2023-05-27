@@ -86,9 +86,11 @@ const card = ({data,lon,lat,city,dataAvailable}) => {
             <div>
               <p className="text-2xl font-bold text-right text-gray-900 p-2">{(data)?data.temp.min:null}°- {(data)?data.temp.max:null}°</p>
               <p className="text-center text-gray-500 text-sm sm:hidden">{(data)?data.weather[0].main:null}</p>
-              <p className="text-right mr-6 text-gray-500 text-sm">Humidity - {(data)?data.humidity:null}% </p>
+              <p className="text-right mr-6 text-gray-500 text-sm">Humidity - {(data)?data.humidity:null} g.m<span style={{ verticalAlign: "super" }}>3</span> </p>
               <p className="text-right mr-6 text-gray-500 text-sm">Longtitude - {(data)?lon:null}</p>
               <p className="text-right mr-6 text-gray-500 text-sm">Latitude - {(data)?lat:null}</p>
+              <p className="text-right mr-6 text-gray-500 text-sm">Pressure - {(data)?data.pressure:null} millibar</p>
+              <p className="text-right mr-6 text-gray-500 text-sm">Windspeed - {(data)?data.wind_speed:null} Km/h</p>
               <p className="text-right mr-6 text-gray-500 text-sm">City - {(data)?city:null}</p>
               <p className="text-right mr-6 text-gray-500 text-sm">{(data)?datenow:null} - <span className='font-bold text-sm'>  {dayName}</span></p>
             </div>

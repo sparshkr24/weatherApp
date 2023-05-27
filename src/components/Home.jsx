@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import FetchAPI from "../API/FetchAPI";
 import weathersvg from "../images/weather.svg";
@@ -7,33 +7,44 @@ import notFoundsvg from "../images/notFound.svg";
 import Loader from "./Loader";
 
 function Home() {
+  useEffect(() => {
+    console.log("useEffect not required in this project");
+
+    return () => {
+      console.log("this is cleanUp function");
+    };
+  }, []);
+
   const [data, setData] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [Error, setError] = useState(false);
   var dataAvailable = false;
 
-  const [city, setCity] = useState('')
-  const [currentCity, setCurrentCity] = useState('')
+  const [city, setCity] = useState("");
+  const [currentCity, setCurrentCity] = useState("");
 
-  const handleCity = (e) =>{
-    e.preventDefault()
-    setCity(e.target.value)
-  }
+  const handleCity = (e) => {
+    e.preventDefault();
+    setCity(e.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(false);
     setIsSubmitted(true);
     setLoading(true);
-    console.log("this is city: ", city)
+    // console.log("this is city: ", city);
+
     await FetchAPI(city)
       .then((response) => {
+
         setTimeout(() => {
           setData(response);
           setLoading(false);
-          setCurrentCity(city)
+          setCurrentCity(city);
         }, 1900);
+
       })
       .catch((error) => {
         // if a promise is rejected means city has found if the cod is 404
@@ -73,7 +84,7 @@ function Home() {
       {!isSubmitted && (
         <div className="px-5 py-5">
           <div className="bg-white p-10 mt-5 bg-opacity-70 rounded-3xl flex flex-col justify-evenly items-center shadow-md w-fit mx-auto">
-            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-red-800 hover:text-red-600">
+            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-[#100450] hover:text-blue-600">
               Enter City Name to check weather forecast for next five days
             </div>
             <img src={weathersvg} alt="Enter The City Name" />
@@ -84,10 +95,10 @@ function Home() {
       {Error && isSubmitted && (
         <div className="px-5 py-5">
           <div className="bg-white p-10 mt-5 bg-opacity-70 rounded-3xl flex flex-col justify-evenly items-center shadow-md w-fit mx-auto">
-            <div className="mb-0 p-0 font-medium sm:text-lg text-sm text-center text-red-800 hover:text-red-600">
+            <div className="mb-0 p-0 font-medium sm:text-lg text-sm text-center text-[#100450] hover:scale-110 ease-in-out duration-200 hover:cursor-grab">
               City Not Found{" "}
             </div>
-            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-red-800 hover:text-red-600">
+            <div className="mb-8 p-0 font-medium sm:text-lg text-sm text-center text-[#100450] hover:scale-110 ease-in-out duration-200 hover:cursor-grab">
               Please Check that You Have Spelled the City Name Correctly{" "}
             </div>
             <img src={notFoundsvg} alt="City Not Found" />
@@ -99,13 +110,9 @@ function Home() {
 
       {!Loading && isSubmitted && !Error && (
         <div className="p-3 h-full align-centre lg:flex sm:grid-cols-3 sm:gap-3 sm:grid items-center justify-evenly align-centre">
-          {/* {data && <Card data={data.daily[0]} lon={data.lon} lat={data.lat} city={textinput.current.value} /> } */}
-          {
-            // (Loading && )
-          }
+          
           {data
             ? data.daily.map(function (dailyData, index) {
-                // console.log(data,data.hasOwnProperty("message") ,  ( data && !(data.hasOwnProperty("message") ) ))
                 dataAvailable = false;
                 if (index <= 2) {
                   dataAvailable = true;
